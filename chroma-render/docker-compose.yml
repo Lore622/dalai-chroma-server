@@ -1,11 +1,17 @@
-version: '3.8'
+# Usa un'immagine base con Node.js
+FROM node:18
 
-services:
-  chroma:
-    image: ghcr.io/chroma-core/chroma:latest
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./chroma-data:/chroma/chroma
-    environment:
-      - IS_PERSISTENT=TRUE
+# Crea una cartella di lavoro
+WORKDIR /app
+
+# Copia i file del progetto
+COPY . .
+
+# Installa le dipendenze
+RUN npm install
+
+# Espone la porta (opzionale, utile per debug)
+EXPOSE 5000
+
+# Comando di avvio
+CMD ["node", "index.js"]
