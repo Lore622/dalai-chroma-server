@@ -1,17 +1,10 @@
-# Usa un'immagine base con Node.js
-FROM node:18
+FROM python:3.10-slim
 
-# Crea una cartella di lavoro
 WORKDIR /app
 
-# Copia i file del progetto
-COPY . .
+RUN pip install chromadb
 
-# Installa le dipendenze
-RUN npm install
+EXPOSE 8000
 
-# Espone la porta (opzionale, utile per debug)
-EXPOSE 5000
+CMD ["chromadb", "run", "--host", "0.0.0.0", "--port", "8000"]
 
-# Comando di avvio
-CMD ["node", "index.js"]
